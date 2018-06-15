@@ -39,6 +39,24 @@ namespace Winton.DomainModelling.AspNetCore
             };
 
             [Fact]
+            private void ShouldDefaultToBadRequestResultIfCustomMapperReturnsNull()
+            {
+                var exceptionContext =
+                    new ExceptionContext(
+                        new ActionContext(new DefaultHttpContext(), new RouteData(), new ActionDescriptor()),
+                        new List<IFilterMetadata>())
+                    {
+                        Exception = new DomainException("Foo")
+                    };
+                var filter = new DomainExceptionFilter((exception, response) => null);
+
+                filter.OnException(exceptionContext);
+
+                exceptionContext.Result.Should().BeEquivalentTo(
+                    new BadRequestObjectResult(new ErrorResponse(new DomainException("Foo"))));
+            }
+
+            [Fact]
             private void ShouldNotSetResultIfNotATypeOfDomainException()
             {
                 var exceptionContext =
