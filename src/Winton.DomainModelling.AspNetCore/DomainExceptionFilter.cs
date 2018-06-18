@@ -26,6 +26,8 @@ namespace Winton.DomainModelling.AspNetCore
         /// <param name="exceptionMapper">
         ///     A function to map custom domain exceptions, that are not handled by this class, to action
         ///     results.
+        ///     This parameter can be used to extend the capabilities of this exception filter to meet an application's specific
+        ///     requirements.
         /// </param>
         public DomainExceptionFilter(Func<DomainException, ErrorResponse, IActionResult> exceptionMapper)
         {
@@ -42,12 +44,6 @@ namespace Winton.DomainModelling.AspNetCore
             }
         }
 
-        /// <summary>
-        ///     Maps a <see cref="DomainException" /> to an <see cref="IActionResult" />.
-        ///     This method can be overriden by classes that extend this one to extend or redefine this mapping.
-        /// </summary>
-        /// <param name="domainException">The <see cref="DomainException" />.</param>
-        /// <returns>The <see cref="IActionResult" />.</returns>
         private IActionResult CreateResult(DomainException domainException)
         {
             var errorResponse = new ErrorResponse(domainException);
