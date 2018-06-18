@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Authors>Winton</Authors>
+    <Company>Winton</Company>
+    <Copyright>Copyright 2018 Winton</Copyright>
+    <Description>Provides conventions for creating an ASP.NET Core based REST API on top of a domain model.</Description>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <GetVersion>False</GetVersion>
+    <NoWarn>$(NoWarn);SA0001;SA1101;SA1309;SA1413;SA1633;SA1652</NoWarn>
+    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+    <PackageTags>Winton, AspNetCore, ASP, .NET, Core, Domain, Modelling</PackageTags>
+    <PackageVersion>$(NuGetVersion)</PackageVersion>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <Title>Winton Domain Modelling ASP.NET Core</Title>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <WriteVersionInfoToBuildLog>False</WriteVersionInfoToBuildLog>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="..\..\stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Bt.Tooling.ReSharper" Version="1.3.0" PrivateAssets="All" />
+    <PackageReference Include="GitVersionTask" Version="4.0.0-beta0012" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.0.0" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" PrivateAssets="All" />
+    <PackageReference Include="Winton.DomainModelling.Abstractions" Version="0.1.0-*" />
+  </ItemGroup>
+
+</Project>
