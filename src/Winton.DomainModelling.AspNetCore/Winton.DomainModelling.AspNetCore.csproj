@@ -9,7 +9,7 @@
     <GetVersion>False</GetVersion>
     <NoWarn>$(NoWarn);SA0001;SA1101;SA1309;SA1413;SA1633;SA1652</NoWarn>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <PackageTags>Winton, AspNetCore, ASP, .NET, Core, App</PackageTags>
+    <PackageTags>Winton, AspNetCore, ASP, .NET, Core, Domain, Modelling</PackageTags>
     <PackageVersion>$(NuGetVersion)</PackageVersion>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <Title>Winton Domain Modelling ASP.NET Core</Title>
