@@ -11,6 +11,7 @@ namespace Winton.DomainModelling.AspNetCore
     /// <summary>
     ///     An exception filter for converting <see cref="DomainException" />s to <see cref="IActionResult" />s.
     /// </summary>
+    [Obsolete("Prefer returning Result types from the domain and convert to an ActionResult using the extensions provided in this library.", false)]
     public sealed class DomainExceptionFilter : IExceptionFilter
     {
         private readonly Func<DomainException, ErrorResponse, IActionResult> _exceptionMapper;
