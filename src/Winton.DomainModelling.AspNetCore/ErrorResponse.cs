@@ -1,11 +1,14 @@
 ﻿// Copyright (c) Winton. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+using System;
+
 namespace Winton.DomainModelling.AspNetCore
 {
     /// <summary>
     ///     A response that represents an error.
     /// </summary>
+    [Obsolete("Prefer returning Result types from the domain and convert to an ActionResult using the extensions provided in this library.", false)]
     public struct ErrorResponse
     {
         /// <summary>
