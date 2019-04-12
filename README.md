@@ -103,10 +103,8 @@ This can either be existing documentation, such as https://httpstatuses.com for 
 Problem details is formally documented in [RFC 7807](https://tools.ietf.org/html/rfc7807). 
 More information about how the fields should be used can be found there.
 
-It is likely that every action method in the API is going to need to perform this error mapping. 
-This is to maintain a loose coupling between API layer and domain model. 
-As otherwise each API action method would need to know all the possible error types that might be returned from a given domain call. 
-To achieve this it is we could define a function that does this mapping for us and then use it throughout.
+In order to maintain a loose coupling between the API layer and the domain model each action method should know how to map any kind of domain error.
+To achieve this we could define a function that does this mapping for us and then use it throughout.
 For example:
 
 ```csharp
