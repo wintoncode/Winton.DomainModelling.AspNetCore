@@ -25,7 +25,7 @@ namespace Winton.DomainModelling.AspNetCore
                 switch (error)
                 {
                     case UnauthorizedError _:
-                        return StatusCodes.Status401Unauthorized;
+                        return StatusCodes.Status403Forbidden;
                     case NotFoundError _:
                         return StatusCodes.Status404NotFound;
                     default:

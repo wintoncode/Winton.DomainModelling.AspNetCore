@@ -18,7 +18,17 @@ namespace Winton.DomainModelling.AspNetCore
                 new object[]
                 {
                     new UnauthorizedError("Access denied"),
-                    new UnauthorizedResult()
+                    new ObjectResult(
+                        new ProblemDetails
+                        {
+                            Detail = "Access denied",
+                            Status = 403,
+                            Title = "Unauthorized",
+                            Type = "https://httpstatuses.com/403"
+                        })
+                    {
+                        StatusCode = StatusCodes.Status403Forbidden
+                    }
                 },
                 new object[]
                 {
