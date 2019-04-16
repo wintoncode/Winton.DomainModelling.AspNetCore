@@ -10,14 +10,14 @@ Conventions useful for creating an ASP.NET Core based REST API on top of a domai
 ## `Result` Extensions
 
 `Result<TData>` is a type defined in the `Winton.DomainModelling.Abstractions` package. 
-It is a type that is intended to be returned from domain operations. 
-It allows operations to indicate both successes and failures to the client. 
-In this case the client is an ASP.NET Core Controller. 
-In a Controller, however, we need to return an `IActionResult` rather than a `Result<TData>`. 
+It is a type that is intended to be returned from domain operations.
+It allows operations to indicate both successes and failures to the client.
+In this case the client is an ASP.NET Core Controller.
+In a Controller, however, we need to return an `IActionResult` rather than a `Result<TData>`. We have two cases to consider:
+* If the `Result<TData>` was a success then we want to return a 2xx response from the API containing the data in the body.
+* If the `Result<TData>` was a failure then we want to return a 4xx response from the API containg [problem details](https://tools.ietf.org/html/rfc7807) in the body.
 
-If the `Result<TData>` was a success then we typically want to return a 2xx response from the API containing the data in the body. 
-If the `Result<TData>` was a failure then we typically want to return a 4xx response from the API containg [problem details](https://tools.ietf.org/html/rfc7807) in the body. 
-This library, therefore, provides a `ToActionResult` extension method for `Result<TData>` which matches on the result and converts it to an appropriate `IActionResult`.
+This library provides a `ToActionResult` extension method for `Result<TData>` which matches on the result and converts it to an appropriate `IActionResult`.
 There are various overloads to provide flexibility. 
 It is expected that this will be used within an [`ApiController`](https://docs.microsoft.com/en-us/aspnet/core/web-api/?view=aspnetcore-2.2#annotation-with-apicontroller-attribute) so that ASP.NET Core will apply its REST API conventions to the `IActionResult`.
 
