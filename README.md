@@ -15,7 +15,7 @@ It allows operations to indicate both successes and failures to the client.
 In this case the client is an ASP.NET Core Controller.
 In a Controller, however, we need to return an `IActionResult` rather than a `Result<TData>`. We have two cases to consider:
 * If the `Result<TData>` was a success then we want to return a 2xx response from the API containing the data in the body.
-* If the `Result<TData>` was a failure then we want to return a 4xx response from the API containg [problem details](https://tools.ietf.org/html/rfc7807) in the body.
+* If the `Result<TData>` was a failure then we want to return a 4xx response from the API containing [problem details](https://tools.ietf.org/html/rfc7807) in the body.
 
 This library provides a `ToActionResult` extension method for `Result<TData>` which matches on the result and converts it to an appropriate `IActionResult`.
 There are various overloads to provide flexibility. 
