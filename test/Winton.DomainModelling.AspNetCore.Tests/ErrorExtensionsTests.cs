@@ -44,6 +44,18 @@ namespace Winton.DomainModelling.AspNetCore
                 },
                 new object[]
                 {
+                    new ConflictError("An entity with id 'EntityId' already exists"),
+                    new ConflictObjectResult(
+                        new ProblemDetails
+                        {
+                            Detail = "An entity with id 'EntityId' already exists",
+                            Status = 409,
+                            Title = "Conflict",
+                            Type = "https://httpstatuses.com/409"
+                        })
+                },
+                new object[]
+                {
                     new Error("Foo error", "A generic error occurred."),
                     new BadRequestObjectResult(
                         new ProblemDetails

@@ -28,6 +28,8 @@ namespace Winton.DomainModelling.AspNetCore
                         return StatusCodes.Status403Forbidden;
                     case NotFoundError _:
                         return StatusCodes.Status404NotFound;
+                    case ConflictError _:
+                        return StatusCodes.Status409Conflict;
                     default:
                         return StatusCodes.Status400BadRequest;
                 }
