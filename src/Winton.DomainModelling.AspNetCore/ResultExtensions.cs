@@ -37,7 +37,7 @@ namespace Winton.DomainModelling.AspNetCore
         /// <param name="onError">
         ///     The function that is invoked if this <paramref name="result"/> is a <see cref="Failure{TData}"/>.
         ///     It is responsible for mapping the <see cref="Error"/> to <see cref="ProblemDetails"/>.
-        ///     If this function returns <code>null</code> then the default error mapping conventions are used.
+        ///     If this function returns <c>null</c> then the default error mapping conventions are used.
         ///     This therefore provides a way to customize the error mapping from <see cref="Error"/> to <see cref="ProblemDetails"/>.
         /// </param>
         /// <returns>
@@ -47,7 +47,7 @@ namespace Winton.DomainModelling.AspNetCore
         /// </returns>
         public static IActionResult ToActionResult(
             this Result<Unit> result,
-            Func<Error, ProblemDetails> onError)
+            Func<Error, ProblemDetails>? onError)
         {
             return result.Match(_ => new NoContentResult(), error => error.ToActionResult(onError));
         }
@@ -77,7 +77,7 @@ namespace Winton.DomainModelling.AspNetCore
         /// <param name="onError">
         ///     The function that is invoked if this <paramref name="resultTask"/> is a <see cref="Failure{TData}"/>.
         ///     It is responsible for mapping the <see cref="Error"/> to <see cref="ProblemDetails"/>.
-        ///     If this function returns <code>null</code> then the default error mapping conventions are used.
+        ///     If this function returns <c>null</c> then the default error mapping conventions are used.
         ///     This therefore provides a way to customize the error mapping from <see cref="Error"/> to <see cref="ProblemDetails"/>.
         /// </param>
         /// <returns>
@@ -123,7 +123,7 @@ namespace Winton.DomainModelling.AspNetCore
         /// <param name="onError">
         ///     The function that is invoked if this <paramref name="result"/> is a <see cref="Failure{TData}"/>.
         ///     It is responsible for mapping the <see cref="Error"/> to <see cref="ProblemDetails"/>.
-        ///     If this function returns <code>null</code> then the default error mapping conventions are used.
+        ///     If this function returns <c>null</c> then the default error mapping conventions are used.
         ///     This therefore provides a way to customize the error mapping from <see cref="Error"/> to <see cref="ProblemDetails"/>.
         /// </param>
         /// <returns>
@@ -133,7 +133,7 @@ namespace Winton.DomainModelling.AspNetCore
         /// </returns>
         public static ActionResult<TData> ToActionResult<TData>(
             this Result<TData> result,
-            Func<Error, ProblemDetails> onError)
+            Func<Error, ProblemDetails>? onError)
         {
             return result.Match(data => new ActionResult<TData>(data), error => error.ToActionResult(onError));
         }
@@ -171,7 +171,7 @@ namespace Winton.DomainModelling.AspNetCore
         /// <param name="onError">
         ///     The function that is invoked if this <paramref name="resultTask"/> is a <see cref="Failure{TData}"/>.
         ///     It is responsible for mapping the <see cref="Error"/> to <see cref="ProblemDetails"/>.
-        ///     If this function returns <code>null</code> then the default error mapping conventions are used.
+        ///     If this function returns <c>null</c> then the default error mapping conventions are used.
         ///     This therefore provides a way to customize the error mapping from <see cref="Error"/> to <see cref="ProblemDetails"/>.
         /// </param>
         /// <returns>
@@ -227,7 +227,7 @@ namespace Winton.DomainModelling.AspNetCore
         /// <param name="onError">
         ///     The function that is invoked if this <paramref name="result"/> is a <see cref="Failure{TData}"/>.
         ///     It is invoked to map the <see cref="Error"/> to <see cref="ProblemDetails"/>.
-        ///     If this function returns <code>null</code> then the default error mapping conventions are used.
+        ///     If this function returns <c>null</c> then the default error mapping conventions are used.
         ///     This therefore provides a way to customize the error mapping from <see cref="Error"/> to <see cref="ProblemDetails"/>.
         /// </param>
         /// <returns>
@@ -238,7 +238,7 @@ namespace Winton.DomainModelling.AspNetCore
         public static IActionResult ToActionResult<TData>(
             this Result<TData> result,
             Func<TData, IActionResult> onSuccess,
-            Func<Error, ProblemDetails> onError)
+            Func<Error, ProblemDetails>? onError)
         {
             return result.Match(onSuccess, error => error.ToActionResult(onError));
         }
@@ -286,7 +286,7 @@ namespace Winton.DomainModelling.AspNetCore
         /// <param name="onError">
         ///     The function that is invoked if this <paramref name="resultTask"/> is a <see cref="Failure{TData}"/>.
         ///     It is invoked to map the <see cref="Error"/> to <see cref="ProblemDetails"/>.
-        ///     If this function returns <code>null</code> then the default error mapping conventions are used.
+        ///     If this function returns <c>null</c> then the default error mapping conventions are used.
         ///     This therefore provides a way to customize the error mapping from <see cref="Error"/> to <see cref="ProblemDetails"/>.
         /// </param>
         /// <returns>
