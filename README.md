@@ -1,7 +1,7 @@
 # Winton.DomainModelling.AspNetCore
 
-[![Build status](https://ci.appveyor.com/api/projects/status/k94y5or6toq2un7d?svg=true)](https://ci.appveyor.com/project/wintoncode/winton-domainmodelling-aspnetcore/branch/master)
-[![Travis Build Status](https://travis-ci.org/wintoncode/Winton.DomainModelling.AspNetCore.svg?branch=master)](https://travis-ci.org/wintoncode/Winton.DomainModelling.AspNetCore)
+[![Appveyor](https://ci.appveyor.com/api/projects/status/k94y5or6toq2un7d?svg=true)](https://ci.appveyor.com/project/wintoncode/winton-domainmodelling-aspnetcore/branch/master)
+[![Travis CI](https://travis-ci.com/wintoncode/Winton.DomainModelling.AspNetCore.svg?branch=master)](https://travis-ci.com/wintoncode/Winton.DomainModelling.AspNetCore)
 [![NuGet version](https://img.shields.io/nuget/v/Winton.DomainModelling.AspNetCore.svg)](https://www.nuget.org/packages/Winton.DomainModelling.AspNetCore)
 [![NuGet version](https://img.shields.io/nuget/vpre/Winton.DomainModelling.AspNetCore.svg)](https://www.nuget.org/packages/Winton.DomainModelling.AspNetCore)
 

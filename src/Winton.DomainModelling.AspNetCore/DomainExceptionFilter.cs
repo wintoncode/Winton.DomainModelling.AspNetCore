@@ -14,7 +14,7 @@ namespace Winton.DomainModelling.AspNetCore
     [Obsolete("Prefer returning Result types from the domain and convert to an ActionResult using the extensions provided in this library.", false)]
     public sealed class DomainExceptionFilter : IExceptionFilter
     {
-        private readonly Func<DomainException, ErrorResponse, IActionResult> _exceptionMapper;
+        private readonly Func<DomainException, ErrorResponse, IActionResult?>? _exceptionMapper;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="DomainExceptionFilter" /> class.
@@ -33,7 +33,7 @@ namespace Winton.DomainModelling.AspNetCore
         ///     This parameter can be used to extend the capabilities of this exception filter to meet an application's specific
         ///     requirements.
         /// </param>
-        public DomainExceptionFilter(Func<DomainException, ErrorResponse, IActionResult> exceptionMapper)
+        public DomainExceptionFilter(Func<DomainException, ErrorResponse, IActionResult?>? exceptionMapper)
         {
             _exceptionMapper = exceptionMapper;
         }
@@ -51,16 +51,12 @@ namespace Winton.DomainModelling.AspNetCore
         private IActionResult CreateResult(DomainException domainException)
         {
             var errorResponse = new ErrorResponse(domainException);
-            switch (domainException)
+            return domainException switch
             {
-                case EntityNotFoundException _:
-                    return new NotFoundObjectResult(errorResponse);
-                case UnauthorizedException _:
-                    return new UnauthorizedResult();
-                default:
-                    return _exceptionMapper?.Invoke(domainException, errorResponse) ??
-                           new BadRequestObjectResult(errorResponse);
-            }
+                EntityNotFoundException _ => new NotFoundObjectResult(errorResponse),
+                UnauthorizedException _ => new UnauthorizedResult(),
+                _ => _exceptionMapper?.Invoke(domainException, errorResponse) ?? new BadRequestObjectResult(errorResponse)
+            };
         }
     }
 }

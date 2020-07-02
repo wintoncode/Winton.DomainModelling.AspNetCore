@@ -9,7 +9,7 @@ namespace Winton.DomainModelling.AspNetCore
 {
     internal static class ErrorExtensions
     {
-        internal static ActionResult ToActionResult(this Error error, Func<Error, ProblemDetails> selectProblemDetails)
+        internal static ActionResult ToActionResult(this Error error, Func<Error, ProblemDetails?>? selectProblemDetails)
         {
             ProblemDetails problemDetails = selectProblemDetails?.Invoke(error) ?? CreateDefaultProblemDetails(error);
             return new ObjectResult(problemDetails)
@@ -20,22 +20,13 @@ namespace Winton.DomainModelling.AspNetCore
 
         private static ProblemDetails CreateDefaultProblemDetails(Error error)
         {
-            int GetStatusCode()
+            int statusCode = error switch
             {
-                switch (error)
-                {
-                    case UnauthorizedError _:
-                        return StatusCodes.Status403Forbidden;
-                    case NotFoundError _:
-                        return StatusCodes.Status404NotFound;
-                    case ConflictError _:
-                        return StatusCodes.Status409Conflict;
-                    default:
-                        return StatusCodes.Status400BadRequest;
-                }
-            }
-
-            int statusCode = GetStatusCode();
+                UnauthorizedError _ => StatusCodes.Status403Forbidden,
+                NotFoundError _ => StatusCodes.Status404NotFound,
+                ConflictError _ => StatusCodes.Status409Conflict,
+                _ => StatusCodes.Status400BadRequest
+            };
             return new ProblemDetails
             {
                 Detail = error.Detail,
