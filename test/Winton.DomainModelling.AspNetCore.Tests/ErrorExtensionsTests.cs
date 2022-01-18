@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Xunit;
 
-namespace Winton.DomainModelling.AspNetCore
+namespace Winton.DomainModelling.AspNetCore;
+
+public class ErrorExtensionsTests
 {
-    public class ErrorExtensionsTests
+    public sealed class ToActionResult : ErrorExtensionsTests
     {
-        public sealed class ToActionResult : ErrorExtensionsTests
-        {
-            public static IEnumerable<object[]> TestCases => new List<object[]>
+        public static IEnumerable<object[]> TestCases => new List<object[]>
             {
                 new object[]
                 {
@@ -68,56 +68,55 @@ namespace Winton.DomainModelling.AspNetCore
                 }
             };
 
-            [Theory]
-            [MemberData(nameof(TestCases))]
-            private void ShouldReturnDefaultResponseIfMappingFunctionIsNull(
-                Error error,
-                IActionResult expected)
-            {
-                IActionResult actionResult = error.ToActionResult(null);
+        [Theory]
+        [MemberData(nameof(TestCases))]
+        private void ShouldReturnDefaultResponseIfMappingFunctionIsNull(
+            Error error,
+            IActionResult expected)
+        {
+            IActionResult actionResult = error.ToActionResult(null);
 
-                actionResult.Should().BeEquivalentTo(expected, options => options.RespectingRuntimeTypes());
-            }
+            actionResult.Should().BeEquivalentTo(expected, options => options.RespectingRuntimeTypes());
+        }
 
-            [Theory]
-            [MemberData(nameof(TestCases))]
-            private void ShouldReturnDefaultResponseIfMappingFunctionReturnsNull(
-                Error error,
-                IActionResult expected)
-            {
-                IActionResult actionResult = error.ToActionResult(e => null);
+        [Theory]
+        [MemberData(nameof(TestCases))]
+        private void ShouldReturnDefaultResponseIfMappingFunctionReturnsNull(
+            Error error,
+            IActionResult expected)
+        {
+            IActionResult actionResult = error.ToActionResult(e => null);
 
-                actionResult.Should().BeEquivalentTo(expected, options => options.RespectingRuntimeTypes());
-            }
+            actionResult.Should().BeEquivalentTo(expected, options => options.RespectingRuntimeTypes());
+        }
 
-            [Fact]
-            private void ShouldUseSelectedProblemDetailsIfNotNull()
-            {
-                var error = new Error("Unsupported Beverage Type", "You cannot make coffee in a teapot.");
+        [Fact]
+        private void ShouldUseSelectedProblemDetailsIfNotNull()
+        {
+            var error = new Error("Unsupported Beverage Type", "You cannot make coffee in a teapot.");
 
-                ActionResult actionResult = error.ToActionResult(
-                    e =>
-                        new ProblemDetails
-                        {
-                            Detail = e.Detail,
-                            Status = StatusCodes.Status418ImATeapot,
-                            Title = e.Title,
-                            Type = "https://example.com/teapots/unsuppported-beverage"
-                        });
-
-                actionResult.Should().BeEquivalentTo(
-                    new ObjectResult(
-                        new ProblemDetails
-                        {
-                            Detail = "You cannot make coffee in a teapot.",
-                            Status = StatusCodes.Status418ImATeapot,
-                            Title = "Unsupported Beverage Type",
-                            Type = "https://example.com/teapots/unsuppported-beverage"
-                        })
+            ActionResult actionResult = error.ToActionResult(
+                e =>
+                    new ProblemDetails
                     {
-                        StatusCode = StatusCodes.Status418ImATeapot
+                        Detail = e.Detail,
+                        Status = StatusCodes.Status418ImATeapot,
+                        Title = e.Title,
+                        Type = "https://example.com/teapots/unsuppported-beverage"
                     });
-            }
+
+            actionResult.Should().BeEquivalentTo(
+                new ObjectResult(
+                    new ProblemDetails
+                    {
+                        Detail = "You cannot make coffee in a teapot.",
+                        Status = StatusCodes.Status418ImATeapot,
+                        Title = "Unsupported Beverage Type",
+                        Type = "https://example.com/teapots/unsuppported-beverage"
+                    })
+                {
+                    StatusCode = StatusCodes.Status418ImATeapot
+                });
         }
     }
 }
